@@ -7,16 +7,16 @@ const router = express.Router();
 
 // Endpoint: POST /upload
 router.post('/upload', upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res
-      .status(400)
-      .json({ error: 'No file uploaded or invalid file type.' });
+  const file = req.file;
+ 
+  if (!file || !file.originalname.match(/\.(jpg)$/i)) {
+    return res.status(400).json({ message: 'No file uploaded or invalid file type.' });
   }
-
+ 
   res.status(200).json({
     message: 'File uploaded successfully!',
-    filename: req.file.filename,
-    path: req.file.path,
+    filename: file.filename,
+    path: `uploads/${file.filename}`
   });
 });
 

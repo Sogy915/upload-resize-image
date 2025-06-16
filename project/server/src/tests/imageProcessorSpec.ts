@@ -9,6 +9,7 @@ describe('Image processing function (sharp)', () => {
   afterAll(() => {
 
     if (fs.existsSync(outputPath)) {
+      
       fs.unlinkSync(outputPath);
     }
   });

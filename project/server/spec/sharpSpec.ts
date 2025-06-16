@@ -19,6 +19,7 @@ describe('Image Processing Function Tests (resizeImage)', () => {
     afterEach(async () => {
         try {
             if (await fs.stat(outputFilePath).catch(() => null)) {
+                await new Promise(resolve => setTimeout(resolve, 100))
                 await fs.unlink(outputFilePath);
             }
         } catch (error) {

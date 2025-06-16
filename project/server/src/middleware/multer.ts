@@ -1,6 +1,7 @@
 import multer from 'multer';
 import path from 'path';
-
+import { Request } from 'express';
+ 
 const storage = multer.diskStorage({
   destination: function (_req, _file, cb) {
     cb(null, path.join(__dirname, '../../uploads'));
@@ -11,9 +12,7 @@ const storage = multer.diskStorage({
     cb(null, `${name}-${Date.now()}${ext}`);
   },
 });
-
-import { Request } from 'express';
-
+ 
 const fileFilter = (
   _req: Request,
   file: Express.Multer.File,
@@ -22,8 +21,8 @@ const fileFilter = (
   if (file.mimetype === 'image/jpeg' || file.originalname.endsWith('.jpg')) {
     cb(null, true);
   } else {
-    cb(new Error('Only .jpg files are allowed!'));
+    cb(null, false);
   }
 };
-
+ 
 export const upload = multer({ storage, fileFilter });
